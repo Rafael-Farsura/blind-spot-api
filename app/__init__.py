@@ -24,6 +24,8 @@ def create_app(config_object=Config):
     }
     Swagger(app)
 
+    # importa models para o metadata do SQLAlchemy
+    from app import models  # noqa: F401
     from app.api.health import bp as health_bp
 
     app.register_blueprint(health_bp, url_prefix="/api")
