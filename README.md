@@ -30,6 +30,25 @@ API: http://127.0.0.1:5000
 Health: http://127.0.0.1:5000/api/health  
 Swagger: http://127.0.0.1:5000/api/docs/
 
+## Seed de demonstração
+
+```bash
+curl -X POST http://127.0.0.1:5000/api/dev/seed
+```
+
+Recria a base local com 1 job concluído, 3 inconsistências e um comentário.
+
+## Principais rotas
+
+| Método | Path |
+|--------|------|
+| POST/GET | `/api/jobs` |
+| GET/DELETE | `/api/jobs/{id}` |
+| POST | `/api/jobs/{id}/executar` |
+| GET/POST | `/api/inconsistencias` |
+| GET/PATCH/DELETE | `/api/inconsistencias/{id}` |
+| POST | `/api/inconsistencias/{id}/comentarios` |
+
 ## Testes
 
 ```bash

@@ -24,11 +24,18 @@ def create_app(config_object=Config):
     }
     Swagger(app)
 
-    # importa models para o metadata do SQLAlchemy
     from app import models  # noqa: F401
+    from app.api.errors import register_error_handlers
     from app.api.health import bp as health_bp
+    from app.api.jobs import bp as jobs_bp
+    from app.api.inconsistencias import bp as inconsistencias_bp
+    from app.api.dev import bp as dev_bp
 
+    register_error_handlers(app)
     app.register_blueprint(health_bp, url_prefix="/api")
+    app.register_blueprint(jobs_bp, url_prefix="/api")
+    app.register_blueprint(inconsistencias_bp, url_prefix="/api")
+    app.register_blueprint(dev_bp, url_prefix="/api")
 
     with app.app_context():
         db.create_all()
