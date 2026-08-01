@@ -55,6 +55,8 @@ Recria a base local com 1 job concluído, 3 inconsistências e um comentário.
 pytest --cov=app --cov-report=term-missing
 ```
 
+Alvo: domínio/services ≥ 80%, rotas ≥ 70%.
+
 ## Notas
 
 - Banco local SQLite: `blindspot.db` (criado na primeira subida).

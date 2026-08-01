@@ -78,3 +78,31 @@ def test_seed(client):
     body = response.get_json()
     assert body["ok"] is True
     assert body["inconsistencias"] == 3
+
+
+def test_criar_inconsistencia_manual(client):
+    response = client.post(
+        "/api/inconsistencias",
+        json={
+            "tipo": "campo_obrigatorio",
+            "severidade": "baixa",
+            "titulo": "Campo X vazio",
+            "descricao": "Registro sem município de prestação.",
+            "referencia": "M-99",
+        },
+    )
+    assert response.status_code == 201
+    assert response.get_json()["origem"] == "manual"
+
+
+def test_excluir_job_pendente(client):
+    job = client.post("/api/jobs", json={"competencia": "2026-08"}).get_json()
+    response = client.delete(f"/api/jobs/{job['id']}")
+    assert response.status_code == 204
+
+
+def test_detalhar_job(client):
+    job = client.post("/api/jobs", json={"competencia": "2026-08"}).get_json()
+    response = client.get(f"/api/jobs/{job['id']}")
+    assert response.status_code == 200
+    assert response.get_json()["id"] == job["id"]
